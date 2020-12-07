@@ -28,10 +28,9 @@ public class GeoLRUCacheImpl<K,V> implements ICache<K,V>{
 
         GeoLRUNode<K,V> node = cache.get(key);
         if( node == null ){
-            return null; // should raise exception here.
+            return null; 
         }
 
-        // move the accessed node to the head;
         this.moveToHead( node );
 
         return node.getValue();
@@ -54,22 +53,17 @@ public class GeoLRUCacheImpl<K,V> implements ICache<K,V>{
             ++count;
 
             if( count > capacity ){
-                // pop the tail
                 GeoLRUNode<K,V> tail = this.popTail();
                 this.cache.remove( tail.getKey() );
                 --count;
             }
         } else {
-            // update the value.
             node.setValue( value );
             this.moveToHead( node );
         }
 
     }
 
-    /**
-     * Always add the new node right after head;
-     */
     private void addNode( GeoLRUNode<K,V> node ){
         node.setPreNode( head );
         node.setPostNode( head.getPostNode() );
@@ -78,9 +72,6 @@ public class GeoLRUCacheImpl<K,V> implements ICache<K,V>{
         head.setPostNode( node );
     }
 
-    /**
-     * Remove an existing node from the linked list.
-     */
     private void removeNode( GeoLRUNode<K,V> node ){
         GeoLRUNode<K,V> pre = node.getPreNode();
         GeoLRUNode<K,V> post = node.getPostNode();
@@ -89,15 +80,11 @@ public class GeoLRUCacheImpl<K,V> implements ICache<K,V>{
         post.setPreNode( pre );
     }
 
-    /**
-     * Move certain node in between to the head.
-     */
     private void moveToHead( GeoLRUNode<K,V> node ){
         this.removeNode( node );
         this.addNode( node );
     }
 
-    // pop the current tail.
     private GeoLRUNode<K,V> popTail(){
         GeoLRUNode<K,V> res = tail.getPreNode();
         this.removeNode( res );
