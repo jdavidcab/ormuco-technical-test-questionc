@@ -1,6 +1,6 @@
 # GEO LRU Cache
 
-These are a two Java Microservice allow save and read information in a LRU cache system. The first service called "geo-lru-cache" implement my owner LRU algorithm. And the second service called "redis-geo-lru-cache" use a client Redis to save and read cache information from Redis Cache.
+These are two Java Microservice allow save and read information in a LRU cache system. The first service called "geo-lru-cache" implement my owner LRU algorithm. And the second service called "redis-geo-lru-cache" use a client Redis to save and read cache information from Redis Cache.
 
 Redis is one of the most popular in-memory data structure stores. For this reason, it can be used as a database, cache, and message broker.
 
